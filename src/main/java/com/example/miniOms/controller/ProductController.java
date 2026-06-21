@@ -3,6 +3,7 @@ package com.example.miniOms.controller;
 import com.example.miniOms.dto.ProductRequestDto;
 import com.example.miniOms.dto.ProductResponseDto;
 import com.example.miniOms.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,13 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ProductResponseDto> create(@RequestBody ProductRequestDto requestDto) {
+    public ResponseEntity<ProductResponseDto> create(@Valid @RequestBody ProductRequestDto requestDto) {
         ProductResponseDto dto = service.create(requestDto);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<ProductResponseDto> update(@PathVariable Long id, @RequestBody ProductRequestDto requestDto) {
+    public ResponseEntity<ProductResponseDto> update(@PathVariable Long id, @Valid @RequestBody ProductRequestDto requestDto) {
         ProductResponseDto dto = service.update(id, requestDto);
         return ResponseEntity.ok(dto);
     }
@@ -44,4 +45,5 @@ public class ProductController {
         ProductResponseDto dto = service.softDelete(id);
         return ResponseEntity.ok(dto);
     }
+
 }

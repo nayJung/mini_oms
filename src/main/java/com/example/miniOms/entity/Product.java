@@ -1,6 +1,8 @@
 package com.example.miniOms.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +19,16 @@ public class Product { // 상품 하나 → 주문 여러 개 [FK는 항상 N쪽
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 널일 수도 있어서 long 보다 Long 선호
 
-    @NonNull
+    @Column(nullable = false)
     private String name;
 
-    @NonNull
+    @Column(nullable = false)
     private Long price;
 
-    @NonNull
-    @Column(name = "use_yn")
+    @Column(nullable = false)
+    private Long stock;
+
+    @Column(nullable = false, name = "use_yn")
     private Boolean useYn;
 
     public void update(String name, Long price) {

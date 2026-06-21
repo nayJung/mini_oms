@@ -3,6 +3,7 @@ package com.example.miniOms.controller;
 import com.example.miniOms.dto.OrderRequestDto;
 import com.example.miniOms.dto.OrderResponseDto;
 import com.example.miniOms.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<OrderResponseDto> create(@RequestBody OrderRequestDto requestDto) {
+    public ResponseEntity<OrderResponseDto> create(@Valid @RequestBody OrderRequestDto requestDto) {
         OrderResponseDto dto = service.create(requestDto);
         return ResponseEntity.ok(dto);
     }
