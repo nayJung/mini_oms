@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductMapper {
 
     public Product toEntity(ProductRequestDto dto) {
-        return new Product(null, dto.getName(), dto.getPrice(), true);
+        return new Product(null, dto.getName(), dto.getPrice(), dto.getStock(), true);
     }
 
     public ProductResponseDto toDto(Product product) {
@@ -18,6 +18,7 @@ public class ProductMapper {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
+                product.getStock(),
                 product.getUseYn()
         );
     }

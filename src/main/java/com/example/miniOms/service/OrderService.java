@@ -7,6 +7,7 @@ import com.example.miniOms.entity.Product;
 import com.example.miniOms.mapper.OrderMapper;
 import com.example.miniOms.repository.OrderRepository;
 import com.example.miniOms.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,11 +34,17 @@ public class OrderService {
         return orderMapper.toDto(order);
     }
 
+    @Transactional
     public OrderResponseDto create(OrderRequestDto requestDto) {
-        Product product = productRepository.findById(requestDto.getProductId())
+        Product product = productRepository.findByIdWithLock(requestDto.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품 없음"));
+
+        product.validateStock(requestDto.getQuantity());
+        product.decreaseStock(requestDto.getQuantity());
+
         Order order = orderMapper.toEntity(product, requestDto);
         Order savedOrder = orderRepository.save(order);
         return orderMapper.toDto(savedOrder);
     }
+
 }

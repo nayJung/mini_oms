@@ -39,4 +39,14 @@ public class Product { // 상품 하나 → 주문 여러 개 [FK는 항상 N쪽
     public void softDelete() {
         this.useYn = false;
     }
+
+    public void validateStock(Long orderQuantity) {
+        if (this.stock < orderQuantity) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+    }
+
+    public void decreaseStock(Long orderQuantity) {
+        this.stock -= orderQuantity;
+    }
 }
