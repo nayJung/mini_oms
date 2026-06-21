@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class OrderResponseDto {
 
     private Long id;
+    private Long productId;
     private String productName; // Product 구조를 노출X
     private Long quantity;
 

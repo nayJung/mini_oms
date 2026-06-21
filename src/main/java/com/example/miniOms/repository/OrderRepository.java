@@ -3,10 +3,11 @@ package com.example.miniOms.repository;
 import com.example.miniOms.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
+@Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     // JPQL은 엔티티의 필드명을 사용
